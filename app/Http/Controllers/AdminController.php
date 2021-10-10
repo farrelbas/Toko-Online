@@ -36,4 +36,32 @@ class AdminController extends Controller
         }
         return Response()->json($data);
     }
+    public function edit_admin($id_admin, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama_admin' => 'required',
+            'username_admin' => 'required',
+            'password_admin' => 'required',
+            'level' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $data['status'] = false;
+            $data['message'] = $validator->errors();
+            return Response()->json($data);
+        }
+        $simpan = Admin::where('id_admin', $id_admin)->update([
+            'nama_admin' => $request->nama_admin,
+            'username_admin' => $request->username_admin,
+            'password_admin' => $request->password_admin,
+            'level' => $request->level,
+        ]);
+        if ($simpan) {
+            $data['status'] = true;
+            $data['message'] = "Sukses update data";
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Gagal update data";
+        }
+        return Response()->json($data);
+    }
 }
