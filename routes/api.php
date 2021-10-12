@@ -19,8 +19,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // PRODUK
+Route::get("/get_produk", "ProdukController@index");
+Route::get("/get_detail_produk/{id_produk}", "ProdukController@detailproduk");
 Route::post('/produk', 'ProdukController@insert_produk');
-Route::put("/edit_produk/{id_produk}", "ProdukController@edit_produk");
+Route::put("/edit_produk/{id_produk}", "ProdukController@update_produk");
+Route::delete("/delete_produk/{id}", "ProdukController@delete_anggota");
 
 // PELANGGAN
 Route::post('/pelanggan', 'PelangganController@insert_pelanggan');

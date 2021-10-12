@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ProdukController extends Controller
 {
+    public function index()
+    {
+        $data = Produk::get();
+        return response()->json($data);
+    }
+    public function detailproduk($id_produk)
+    {
+        $detail = Produk::where('id_produk', $id_produk)->first();
+        return Response()->json($detail);
+    }
     public function insert_produk(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -43,7 +53,7 @@ class ProdukController extends Controller
         }
         return Response()->json($data);
     }
-    public function edit_produk($id_produk, Request $request)
+    public function update_produk($id_produk, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama_produk' => 'required',
@@ -75,6 +85,18 @@ class ProdukController extends Controller
         } else {
             $data['status'] = false;
             $data['message'] = "Gagal update data";
+        }
+        return Response()->json($data);
+    }
+    public function delete_produk($id_produk)
+    {
+        $hapus = Produk::where('id_produk', $id_produk)->delete();
+        if ($hapus) {
+            $data['status'] = true;
+            $data['message'] = "Sukses delete data";
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Gagal delete data";
         }
         return Response()->json($data);
     }
