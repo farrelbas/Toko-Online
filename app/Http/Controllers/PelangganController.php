@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 class PelangganController extends Controller
 {
+    public function index()
+    {
+        $data = Pelanggan::get();
+        return response()->json($data);
+    }
+    public function detailpelanggan($id_pelanggan)
+    {
+        $detail = Pelanggan::where('id_pelanggan', $id_pelanggan)->first();
+        return Response()->json($detail);
+    }
     public function insert_pelanggan(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -38,7 +48,7 @@ class PelangganController extends Controller
         }
         return Response()->json($data);
     }
-    public function edit_pelanggan($id_pelanggan, Request $request)
+    public function update_pelanggan($id_pelanggan, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama_pelanggan' => 'required',
@@ -65,6 +75,18 @@ class PelangganController extends Controller
         } else {
             $data['status'] = false;
             $data['message'] = "Gagal update data";
+        }
+        return Response()->json($data);
+    }
+    public function delete_pelanggan($id_pelanggan)
+    {
+        $hapus = Pelanggan::where('id_pelanggan', $id_pelanggan)->delete();
+        if ($hapus) {
+            $data['status'] = true;
+            $data['message'] = "Sukses delete data";
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Gagal delete data";
         }
         return Response()->json($data);
     }

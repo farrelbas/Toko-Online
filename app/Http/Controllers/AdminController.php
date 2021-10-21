@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        $data = Admin::get();
+        return response()->json($data);
+    }
+    public function detailadmin($id_admin)
+    {
+        $detail = Admin::where('id_admin', $id_admin)->first();
+        return Response()->json($detail);
+    }
     public function insert_admin(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -36,7 +46,7 @@ class AdminController extends Controller
         }
         return Response()->json($data);
     }
-    public function edit_admin($id_admin, Request $request)
+    public function update_admin($id_admin, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama_admin' => 'required',
@@ -61,6 +71,18 @@ class AdminController extends Controller
         } else {
             $data['status'] = false;
             $data['message'] = "Gagal update data";
+        }
+        return Response()->json($data);
+    }
+    public function delete_admin($id_admin)
+    {
+        $hapus = Admin::where('id_admin', $id_admin)->delete();
+        if ($hapus) {
+            $data['status'] = true;
+            $data['message'] = "Sukses delete data";
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Gagal delete data";
         }
         return Response()->json($data);
     }

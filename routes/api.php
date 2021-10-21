@@ -22,16 +22,22 @@ use Illuminate\Support\Facades\Route;
 Route::get("/get_produk", "ProdukController@index");
 Route::get("/get_detail_produk/{id_produk}", "ProdukController@detailproduk");
 Route::post('/produk', 'ProdukController@insert_produk');
-Route::put("/edit_produk/{id_produk}", "ProdukController@update_produk");
-Route::delete("/delete_produk/{id}", "ProdukController@delete_anggota");
+Route::put("/update_produk/{id_produk}", "ProdukController@update_produk");
+Route::delete("/delete_produk/{id_produk}", "ProdukController@delete_produk");
 
 // PELANGGAN
+Route::get("/get_pelanggan", "PelangganController@index");
+Route::get("/get_detail_pelanggan/{id_pelanggan}", "PelangganController@detailpelanggan");
 Route::post('/pelanggan', 'PelangganController@insert_pelanggan');
-Route::put("/edit_pelanggan/{id_pelanggan}", "PelangganController@edit_pelanggan");
+Route::put("/update_pelanggan/{id_pelanggan}", "PelangganController@update_pelanggan");
+Route::delete("/delete_pelanggan/{id_pelanggan}", "PelangganController@delete_pelanggan");
 
 // ADMIN
+Route::get("/get_admin", "AdminController@index");
+Route::get("/get_detail_admin/{id_admin}", "AdminController@detailadmin");
 Route::post('/admin', 'AdminController@insert_admin');
-Route::put("/edit_admin/{id_admin}", "AdminController@edit_admin");
+Route::put("/update_admin/{id_admin}", "AdminController@update_admin");
+Route::delete("/delete_admin/{id_admin}", "AdminController@delete_admin");
 
 // TRANSAKSI
 Route::post('/transaksi', 'TransaksiController@insert_transaksi');
